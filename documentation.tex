@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage[hidelinks]{hyperref}
+
+\title{\Huge\textbf{LPCNet}}
+\author{\LARGE{Ionescu Costin}}
+\date{}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+\quad I wanted to implement a solution for TTS, and I wanted it to incorporate knowledge from the field of Signal Processing. After researching extensively, I found several solutions, including WaveNet, WaveRNN, FFTNet, and SampleNet. However, I concluded that the best one to implement is LPCNet because it combines Signal Processing techniques with Machine Learning to achieve better results. Additionally, it does not require a large amount of data or computing power for training, as it is considered a lightweight model.
+
+\section{Abstract}
+\quad LPCNet addresses the problem of generating real-time audio from text. I implemented the network in the same way as described in the official research paper.
+
+\section{Technical Details}
+
+\subsection{Linear Predictive Coding}
+\quad LPC is an autoregressive method for generating new audio data from previous samples. It works by modeling the speech signal as a linear combination of its previous values. LPC is also used to reduce the amount of information transmitted, as it is easier to send just the error signal rather than sending the entire uncompressed signal. The formula for LPC is given by:
+
+\[
+x(t) = \sum_{k=1}^{M}{a_k x_{t-k} + e_t}
+\]
+
+where \(a_k\) are the LPC coefficients that need to be calculated and \(e_t\) the error for the sample at position \(t\). These coefficients are computed using the Levinson-Durbin method.
+
+\subsection{Levinson-Durbin}
+\quad The Levinson-Durbin algorithm is a numerically unstable iterative method for solving a system of equations that involves a Toeplitz matrix. The time complexity of this method is \(O(n^2)\). Faster algorithms exist for this task, but the Levinson-Durbin method remains one of the most well-known and widely used approaches. Levinson-Durbin normally is applied on a Toeplitz matrix of signal, but in LPCNet paper it is implemented in a different way.
+
+\subsection{Levinson-Durbin in LPCNet}
+\quad To get the LPC coefficients in LPCNet paper a different strategy is used.
+
+\newpage
+\section{Bibliography}
+
+\begin{itemize}
+    \item \href{https://arxiv.org/pdf/1810.11846}{LPCNet paper}
+    \item \href{https://en.wikipedia.org/wiki/Linear_predictive_coding}{LPC Wikipedia}
+    \item \href{https://en.wikipedia.org/wiki/Levinson_recursion}{Levinson-Durbin Wikipedia}
+    \item \href{https://ocw.mit.edu/courses/6-341-discrete-time-signal-processing-fall-2005/06e8ddb9555ede1b094f5dc9d17ea254_lec13.pdf}{Levinson-Durbin MIT}
+\end{itemize}
+
+\end{document}
